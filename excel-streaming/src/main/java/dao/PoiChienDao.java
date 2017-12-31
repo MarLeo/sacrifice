@@ -90,23 +90,19 @@ public class PoiChienDao implements ChienDao {
     }
 
     @Override
-    public List<Chien> findAllChiens() {
+    public List<Chien> findAllChiens() throws IOException, InvalidFormatException {
 
         final File file = new File(fileName);
 
         final List<Chien> chiens = new ArrayList<>();
 
-        try {
-
-            final Workbook workbook = WorkbookFactory.create(file);
-            //final Sheet sheet = workbook.getSheet("Feuil1");
+        try (final Workbook workbook = WorkbookFactory.create(file)) {
             int sheets = workbook.getNumberOfSheets();
-
             for (int i = 0; i < sheets; i++) {
                 final Sheet sheet = workbook.getSheetAt(i);
                 for (Row row : sheet) {
                     if (row.getRowNum() == 0) {
-                        System.out.println("HEADERS: " + headers(sheet.getRow(0)).values());
+                        logger.info("HEADERS: " + headers(sheet.getRow(0)).values());
                     } else {
                         final Chien chien = rowToChien(row);
                         chiens.add(chien);
@@ -114,13 +110,11 @@ public class PoiChienDao implements ChienDao {
                 }
 
             }
-        } catch (InvalidFormatException | IOException e) {
-            logger.error(e.getMessage(), e);
         }
         return chiens;
     }
 
-    public Map<Integer, String> headers(final Row row) {
+    private Map<Integer, String> headers(final Row row) {
 
         Map<Integer, String> headers = new TreeMap<>();
         Iterator<Cell> cell = row.cellIterator();

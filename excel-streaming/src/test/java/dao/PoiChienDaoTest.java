@@ -4,10 +4,12 @@ import api.Chien;
 import api.ChienDao;
 import enums.RaceDeChien;
 import org.apache.log4j.Logger;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.List;
 
 import static enums.RaceDeChien.*;
@@ -26,7 +28,7 @@ public class PoiChienDaoTest {
     }
 
     @Test
-    public void testFindAllChien() {
+    public void testFindAllChien() throws IOException, InvalidFormatException {
 
         logger.debug("testFindAllchien");
 
@@ -39,7 +41,7 @@ public class PoiChienDaoTest {
     }
 
     @Test
-    public void testOrdreDesChiens() {
+    public void testOrdreDesChiens() throws IOException, InvalidFormatException {
 
         logger.debug("testOrdreDesChiens");
 
@@ -56,7 +58,7 @@ public class PoiChienDaoTest {
     }
 
     @Test
-    public void testTaillesDesChiens() {
+    public void testTaillesDesChiens() throws IOException, InvalidFormatException {
         logger.debug("testTaillesDesChiens");
 
         // Arrange
@@ -72,7 +74,7 @@ public class PoiChienDaoTest {
     }
 
     @Test
-    public void testRacesDesChiens() {
+    public void testRacesDesChiens() throws IOException, InvalidFormatException {
         logger.debug("testRacesDesChiens");
 
         // Arrange
