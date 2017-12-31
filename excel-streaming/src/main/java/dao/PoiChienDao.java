@@ -114,8 +114,6 @@ public class PoiChienDao implements ChienDao {
                 }
 
             }
-
-
         } catch (InvalidFormatException | IOException e) {
             logger.error(e.getMessage(), e);
         }
