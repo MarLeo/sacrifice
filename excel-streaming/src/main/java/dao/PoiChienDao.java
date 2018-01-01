@@ -2,23 +2,30 @@ package dao;
 
 import api.Chien;
 import api.ChienDao;
-import com.google.common.base.Splitter;
 import enums.RaceDeChien;
 import enums.Sexe;
 import model.SimpleChien;
 import org.apache.log4j.Logger;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import static util.ExcelUtilities.*;
 
 public class PoiChienDao implements ChienDao {
 
     private static final Logger logger = Logger.getLogger(PoiChienDao.class);
 
     private String fileName;
+
+    // TODO : creer des objets génériques, utiliser un design pattern pour l' instantiation: builder et factory
 
     public PoiChienDao(String fileName) {
         super();
@@ -67,39 +74,18 @@ public class PoiChienDao implements ChienDao {
         return chien;
     }
 
-    private static List<String> stringToList(final String s) {
-        return Splitter.on(",")
-                .trimResults()
-                .splitToList(s);
-    }
-
-    private static Object getCellValue(Cell cell) {
-        switch (cell.getCellTypeEnum()) {
-            case ERROR:
-                return cell.getErrorCellValue();
-            case STRING:
-                return cell.getStringCellValue();
-            case NUMERIC:
-                return cell.getNumericCellValue();
-            case BOOLEAN:
-                return cell.getBooleanCellValue();
-            case FORMULA:
-                return cell.getCellFormula();
-        }
-        return null;
-    }
-
     @Override
-    public List<Chien> findAllChiens() throws IOException, InvalidFormatException {
+    public List<Chien> findAllChiens() throws IOException {
 
         final File file = new File(fileName);
 
         final List<Chien> chiens = new ArrayList<>();
 
-        try (final Workbook workbook = WorkbookFactory.create(file)) {
+        try (final Workbook workbook = getWorkBook(file)) {
             int sheets = workbook.getNumberOfSheets();
             for (int i = 0; i < sheets; i++) {
                 final Sheet sheet = workbook.getSheetAt(i);
+                logger.info("Sheet Name: " + sheet.getSheetName());
                 for (Row row : sheet) {
                     if (row.getRowNum() == 0) {
                         logger.info("HEADERS: " + headers(sheet.getRow(0)).values());
@@ -108,25 +94,13 @@ public class PoiChienDao implements ChienDao {
                         chiens.add(chien);
                     }
                 }
-
             }
         }
+
         return chiens;
     }
 
-    private Map<Integer, String> headers(final Row row) {
 
-        Map<Integer, String> headers = new TreeMap<>();
-        Iterator<Cell> cell = row.cellIterator();
-
-        while (cell.hasNext()) {
-            Cell nextCell = cell.next();
-            int columnIndex = nextCell.getColumnIndex();
-            headers.put(columnIndex, (String) getCellValue(nextCell));
-        }
-
-        return headers;
-    }
 
 
 }

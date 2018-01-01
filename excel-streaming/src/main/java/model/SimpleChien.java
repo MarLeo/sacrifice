@@ -3,9 +3,11 @@ package model;
 import api.Chien;
 import enums.RaceDeChien;
 import enums.Sexe;
+import lombok.Data;
 
 import java.util.List;
 
+@Data
 public class SimpleChien implements Chien {
 
     private String nom;
@@ -16,7 +18,6 @@ public class SimpleChien implements Chien {
     private Double poids;
 
     public SimpleChien() {
-        // rien...
     }
 
     public SimpleChien(final String nom) {
@@ -29,58 +30,4 @@ public class SimpleChien implements Chien {
         this.sexe = sexe;
     }
 
-    @Override
-    public String toString() {
-        return "SimpleChien [nom=" + nom + "]";
-    }
-
-    // Getters et setters
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public String getNomComplet() {
-        return nomComplet;
-    }
-
-    public void setNomComplet(String nomComplet) {
-        this.nomComplet = nomComplet;
-    }
-
-    public Sexe getSexe() {
-        return sexe;
-    }
-
-    public void setSexe(Sexe sexe) {
-        this.sexe = sexe;
-    }
-
-    public RaceDeChien getRace() {
-        return race;
-    }
-
-    public void setRace(RaceDeChien race) {
-        this.race = race;
-    }
-
-    public List<String> getCouleurs() {
-        return couleurs;
-    }
-
-    public void setCouleurs(List<String> couleurs) {
-        this.couleurs = couleurs;
-    }
-
-    public Double getPoids() {
-        return poids;
-    }
-
-    public void setPoids(Double poids) {
-        this.poids = poids;
-    }
 }
