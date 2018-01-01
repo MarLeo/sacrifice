@@ -1,6 +1,10 @@
 package model;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class Enclosures extends Components {
 
     private final int width;
@@ -12,7 +16,7 @@ public class Enclosures extends Components {
     private final String wmOrFs;
 
 
-    public Enclosures(Builder builder) {
+    Enclosures(Builder<?> builder) {
         super(builder);
         this.width = builder.width;
         this.height = builder.height;
@@ -23,8 +27,24 @@ public class Enclosures extends Components {
         this.wmOrFs = builder.wmOrFs;
     }
 
+    public static Builder<?> builder() {
+        return new Builder();
+    }
 
-    public static class Builder extends Components.Builder<Builder> {
+    @Override
+    public String toString() {
+        return "Enclosures{" + super.toString() +
+                ", width=" + width +
+                ", height=" + height +
+                ", depth=" + depth +
+                ", verticalOffset=" + verticalOffset +
+                ", horizontalOffset=" + horizontalOffset +
+                ", numberOfDoors=" + numberOfDoors +
+                ", wmOrFs='" + wmOrFs + '\'' +
+                '}';
+    }
+
+    public static class Builder<T extends Builder<T>> extends Components.Builder<T> {
         private int width;
         private int height;
         private int depth;
@@ -33,39 +53,39 @@ public class Enclosures extends Components {
         private int numberOfDoors;
         private String wmOrFs;
 
-        public Builder width(int width) {
+        public T width(int width) {
             this.width = width;
-            return this;
+            return self();
         }
 
-        public Builder height(int height) {
+        public T height(int height) {
             this.height = height;
-            return this;
+            return self();
         }
 
-        public Builder depth(int depth) {
+        public T depth(int depth) {
             this.depth = depth;
-            return this;
+            return self();
         }
 
-        public Builder verticalOffset(int verticalOffset) {
+        public T verticalOffset(int verticalOffset) {
             this.verticalOffset = verticalOffset;
-            return this;
+            return self();
         }
 
-        public Builder horizontalOffset(int horizontalOffset) {
+        public T horizontalOffset(int horizontalOffset) {
             this.horizontalOffset = horizontalOffset;
-            return this;
+            return self();
         }
 
-        public Builder numberOfDoors(int numberOfDoors) {
+        public T numberOfDoors(int numberOfDoors) {
             this.numberOfDoors = numberOfDoors;
-            return this;
+            return self();
         }
 
-        public Builder wmOrFs(String wmOrFs) {
+        public T wmOrFs(String wmOrFs) {
             this.wmOrFs = wmOrFs;
-            return this;
+            return self();
         }
 
         public Enclosures build() {

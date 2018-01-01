@@ -24,9 +24,7 @@ public class ExcelDriver {
         logger.info( String.format("Liste d'animaux: %s",  dao.findAllChiens()));
         */
 
-        Components.Builder components = new Components.Builder();
-
-        components
+        Components components = new Components.Builder()
                 .componentType("Electrical Component")
                 .reference("14811")
                 .description("COMB BUSBAR 24 PITCHES- FOR C120 AND NG125- 63A UNI")
@@ -34,11 +32,9 @@ public class ExcelDriver {
                 .productRange("CELLEAN")
                 .build();
 
-        logger.info(String.format("Components data: %s", components.build()));
+        logger.info(String.format("Components data: %s", components));
 
-        Enclosures.Builder enclosures = new Enclosures.Builder();
-
-        enclosures
+        Enclosures enclosures = new Enclosures.Builder<>()
                 .componentType("Electrical Component")
                 .reference("14811")
                 .description("COMB BUSBAR 24 PITCHES- FOR C120 AND NG125- 63A UNI")
@@ -53,7 +49,8 @@ public class ExcelDriver {
                 .wmOrFs("WM")
                 .build();
 
-        logger.info(String.format("Enclosures data: %s", enclosures.build()));
+        logger.info(String.format("Enclosures data: %s", enclosures));
+
 
         ComponentsDao dao = new ComponentsDao(file.getAbsolutePath());
         dao.findAllComponents();

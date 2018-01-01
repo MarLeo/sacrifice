@@ -11,7 +11,7 @@ public class Components {
     private final String manufacturer;
     private final String productRange;
 
-    public Components(Builder<?> builder) {
+    protected Components(Builder<?> builder) {
         this.componentType = builder.componentType;
         this.reference = builder.reference;
         this.description = builder.description;
@@ -20,6 +20,10 @@ public class Components {
     }
 
 
+    public static Builder<?> builder() {
+        return new Builder();
+    }
+
     public static class Builder<T extends Builder<T>> {
         private String componentType;
         private String reference;
@@ -27,37 +31,40 @@ public class Components {
         private String manufacturer;
         private String productRange;
 
-        public Builder() {
+        protected T self() {
+            return (T) this;
         }
+
 
         public T componentType(String componentType) {
             this.componentType = componentType;
-            return (T) this;
+            return self();
         }
 
         public T reference(String reference) {
             this.reference = reference;
-            return (T) this;
+            return self();
         }
 
         public T description(String description) {
             this.description = description;
-            return (T) this;
+            return self();
         }
 
         public T manufacturer(String manufacturer) {
             this.manufacturer = manufacturer;
-            return (T) this;
+            return self();
         }
 
         public T productRange(String productRange) {
             this.productRange = productRange;
-            return (T) this;
+            return self();
         }
 
         public Components build() {
             return new Components(this);
         }
+
     }
 
 
