@@ -44,6 +44,7 @@ public class Enclosures extends Components {
                 '}';
     }
 
+    //<editor-fold desc="Builder Class">
     public static class Builder<T extends Builder<T>> extends Components.Builder<T> {
         private int width;
         private int height;
@@ -92,6 +93,7 @@ public class Enclosures extends Components {
             return new Enclosures(this);
         }
     }
+    //</editor-fold>
 
 
 }

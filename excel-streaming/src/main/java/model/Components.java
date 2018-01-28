@@ -24,6 +24,8 @@ public class Components {
         return new Builder();
     }
 
+
+    //<editor-fold desc="Builder class">
     public static class Builder<T extends Builder<T>> {
         private String componentType;
         private String reference;
@@ -66,6 +68,7 @@ public class Components {
         }
 
     }
+    //</editor-fold>
 
 
 }

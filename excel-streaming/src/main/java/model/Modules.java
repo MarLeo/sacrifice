@@ -49,6 +49,7 @@ public class Modules extends Components {
                 '}';
     }
 
+    //<editor-fold desc="Builder Class">
     public static class Builder<T extends Modules.Builder<T>> extends Components.Builder<T> {
 
         private String tag;
@@ -117,4 +118,5 @@ public class Modules extends Components {
             return new Modules(this);
         }
     }
+    //</editor-fold>
 }

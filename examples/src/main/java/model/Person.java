@@ -33,7 +33,7 @@ public final class Person {
 
         Person person = (Person) o;
 
-        return age == person.getAge() && name == person.getName();
+        return age == person.getAge() && name.equals(person.getName());
     }
 
 

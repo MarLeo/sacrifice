@@ -17,12 +17,15 @@ import java.util.*;
 public class ExcelUtilities {
 
 
+    //<editor-fold desc="Convert String to List">
     public static List<String> stringToList(final String s) {
         return Splitter.on(",")
                 .trimResults()
                 .splitToList(s);
     }
+    //</editor-fold>
 
+    //<editor-fold desc="Read Cell Type">
     public static Object getCellValue(Cell cell) {
         switch (cell.getCellTypeEnum()) {
             case ERROR:
@@ -38,7 +41,9 @@ public class ExcelUtilities {
         }
         return null;
     }
+    //</editor-fold>
 
+    //<editor-fold desc="Read Headers">
     public static Map<Integer, String> headers(final Row row) {
 
         Map<Integer, String> headers = new TreeMap<>();
@@ -52,12 +57,16 @@ public class ExcelUtilities {
 
         return headers;
     }
+    //</editor-fold>
 
+    //<editor-fold desc="Read Excel file">
     public static File readResource(final String path) {
         ClassLoader loader = ClassLoader.getSystemClassLoader();
         return new File(Objects.requireNonNull(loader.getResource(path)).getFile());
     }
+    //</editor-fold>
 
+    //<editor-fold desc="Read All Sheets">
     public static Workbook getWorkBook(final File file) throws IOException {
         Workbook workbook;
 
@@ -74,7 +83,9 @@ public class ExcelUtilities {
 
         return workbook;
     }
+    //</editor-fold>
 
+    //<editor-fold desc="Read Components Sheet">
     public static model.Components rowToComponents(final Row row) {
         model.Components.Builder components = new model.Components.Builder();
 
@@ -109,7 +120,9 @@ public class ExcelUtilities {
         }
         return components.build();
     }
+    //</editor-fold>
 
+    //<editor-fold desc="Read Enclosures Sheet">
     public static Enclosures rowToEnclosures(final Row row) {
         Enclosures.Builder enclosures = new Enclosures.Builder();
 
@@ -172,7 +185,9 @@ public class ExcelUtilities {
         }
         return enclosures.build();
     }
+    //</editor-fold>
 
+    //<editor-fold desc="Read Module Sheet">
     public static Modules rowToModules(Row row) {
 
         Modules.Builder modules = new Modules.Builder();
@@ -250,6 +265,7 @@ public class ExcelUtilities {
         }
         return modules.build();
     }
+    //</editor-fold>
 
 
 
