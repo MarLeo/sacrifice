@@ -1,8 +1,12 @@
 import generics.CircularBuffer;
 import model.Person;
 import org.apache.log4j.Logger;
+import util.Util;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class ExcelDriver {
 
@@ -64,15 +68,18 @@ public class ExcelDriver {
 
         Person p1 = new Person("Don Draper", 89);
         Person p2 = new Person("Peggy Olson", 65);
-
-        Person[] madMen = {p1, p2};
-
         Person p3 = new Person("Bert Cooper", 100);
 
-        madMen = add(p3, madMen);
 
+        List<Person> madMen = new ArrayList<>();
+        madMen.add(p1);
+        madMen.add(p2);
+        madMen.add(p3);
 
-        System.out.println(Arrays.toString(madMen));
+        //Collections.sort(madMen, new Util.AgeComparator());
+        Collections.sort(madMen, new Util.ReverseComparator<>(new Util.AgeComparator()));
+
+        System.out.println(madMen);
 
 
     }
