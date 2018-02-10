@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Objects;
 
 @Data
-public final class Person {
+public class Person {
 
 
     private final String name;

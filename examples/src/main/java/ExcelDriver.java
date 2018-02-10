@@ -3,10 +3,11 @@ import model.Person;
 import org.apache.log4j.Logger;
 import util.Util;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.function.Predicate;
+
+import static java.util.stream.Collectors.counting;
+import static java.util.stream.Collectors.partitioningBy;
 
 public class ExcelDriver {
 
@@ -66,20 +67,47 @@ public class ExcelDriver {
         System.out.println("result = " + concatenate(buffer));*/
 
 
-        Person p1 = new Person("Don Draper", 89);
-        Person p2 = new Person("Peggy Olson", 65);
-        Person p3 = new Person("Bert Cooper", 100);
+        Person donDraper = new Person("Don Draper", 89);
+        Person peggyOlson = new Person("Peggy Olson", 65);
+        Person bertCooper = new Person("Bert Cooper", 100);
 
 
         List<Person> madMen = new ArrayList<>();
-        madMen.add(p1);
-        madMen.add(p2);
-        madMen.add(p3);
+        madMen.add(donDraper);
+        madMen.add(peggyOlson);
+        madMen.add(bertCooper);
 
         //Collections.sort(madMen, new Util.AgeComparator());
         Collections.sort(madMen, new Util.ReverseComparator<>(new Util.AgeComparator()));
 
-        System.out.println(madMen);
+        // System.out.println(madMen);
+
+        final Person youngestCastMember = min(madMen, new Util.AgeComparator());
+
+        System.out.println("Youngest Man: " + youngestCastMember);
+
+        List<Integer> numbers = new ArrayList<>();
+        numbers.add(1);
+        numbers.add(2);
+        numbers.add(3);
+
+        System.out.println("Min: " + min(numbers, Integer::compare));
+
+        /**
+         * Wildcards
+         * Upper Bounded       |  Lower Bounded       |  Unbounded
+         * List<? extends Cls> |  List<? super Cls>  |   List<?>
+         */
+
+        Predicate<Person> isOld = person -> person.getAge() > 80;
+        System.out.println(isOld.test(donDraper));
+        System.out.println(isOld.test(bertCooper));
+
+        Map<Boolean, Long> oldAndYoungPeople = madMen.stream()
+                .collect(partitioningBy(person -> person.getAge() > 80, counting()));
+
+
+        System.out.println(oldAndYoungPeople);
 
 
     }
@@ -102,5 +130,20 @@ public class ExcelDriver {
 
         return result.toString();
     }
+
+    private static <T> T min(List<T> values, Comparator<T> comparator) {
+
+        if (values.isEmpty()) throw new IllegalArgumentException("List is empty, cannot find minimum");
+        T lowestElement = values.get(0);
+        for (int i = 1; i < values.size(); i++) {
+            final T element = values.get(i);
+            if (comparator.compare(element, lowestElement) < 0) {
+                lowestElement = element;
+            }
+        }
+
+        return lowestElement;
+    }
+
 
 }
