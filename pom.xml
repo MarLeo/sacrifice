@@ -29,6 +29,7 @@
         <module>swagger</module>
         <module>examples</module>
         <module>excel-streaming</module>
+        <module>concurency-service</module>
     </modules>
 
     <dependencies>
