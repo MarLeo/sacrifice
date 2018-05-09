@@ -30,6 +30,7 @@
         <module>examples</module>
         <module>excel-streaming</module>
         <module>concurency-service</module>
+        <module>rx-java-service</module>
     </modules>
 
     <dependencies>
