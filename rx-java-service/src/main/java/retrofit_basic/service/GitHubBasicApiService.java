@@ -17,12 +17,10 @@ import java.util.stream.Stream;
 
 public class GitHubBasicApiService {
 
-    private Properties properties = Utils.getProperties();
     private GitHubBasicApi api;
 
-    private Predicate<Contributor> contributorPredicate;
-
     public GitHubBasicApiService() {
+        Properties properties = Utils.getProperties();
         String baseUrl = properties.getProperty("baseUrl");
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
@@ -67,7 +65,7 @@ public class GitHubBasicApiService {
 
         contributors = contributors != null ? contributors : Collections.emptyList();
 
-        contributorPredicate = contributor -> contributor.getContributions() > 10.0;
+        Predicate<Contributor> contributorPredicate = contributor -> contributor.getContributions() > 10.0;
         return contributors.stream()
                 // .map(contributor -> new Contributor(String.valueOf(contributor.get("login")), Double.valueOf(contributor.get("contributions").toString())))
                 .filter(contributorPredicate);

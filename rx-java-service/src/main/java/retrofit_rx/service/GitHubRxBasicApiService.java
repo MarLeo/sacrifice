@@ -12,11 +12,10 @@ import java.util.Properties;
 
 public class GitHubRxBasicApiService {
 
-    private Properties properties = Utils.getProperties();
     private GitHubRxBasicApi api;
 
-
     public GitHubRxBasicApiService() {
+        Properties properties = Utils.getProperties();
         String baseUrl = properties.getProperty("baseUrl");
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
