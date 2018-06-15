@@ -31,6 +31,7 @@
         <module>excel-streaming</module>
         <module>concurency-service</module>
         <module>rx-java-service</module>
+        <module>coherent-logic-fred-client-master</module>
     </modules>
 
     <dependencies>
